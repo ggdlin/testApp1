@@ -20,14 +20,16 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetcher?.fetch(itemsAmount: 12, for: self)
+        fetcher?.fetch(itemsCount: 10, closure: { images in
+            self.images = images
+            self.tableView.reloadData()
+        })
         
     }
     
-    @IBAction func reloadButton(_ sender: Any) {
-        tableView.reloadData()
+    deinit {
+        print("Table ViewController DEinitialized")
     }
-    
 }
 
 extension ViewController: UITableViewDataSource {
@@ -49,13 +51,5 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: FetcherDelegate {
-    func fetcher(receivedItem: ImageAndText, at index: Int) {
-        images.insert(receivedItem, at: index)
-        tableView.reloadData()
-    }
-    
-    
-}
 
 
