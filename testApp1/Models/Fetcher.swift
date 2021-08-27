@@ -8,5 +8,6 @@
 import Foundation
 
 protocol Fetcher: AnyObject {
-    func fetch(itemsAmount: Int, for delegate: FetcherDelegate)
+    var delegate: FetcherDelegate? { get set }
+    func fetch(itemsAmount: Int)
 }

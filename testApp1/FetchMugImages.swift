@@ -8,13 +8,17 @@
 import UIKit
 
 class FetchMugImages: Fetcher {
+    weak var delegate: FetcherDelegate?
     
-    func fetch(itemsAmount: Int, for delegate: FetcherDelegate) {
+    func fetch(itemsAmount: Int) {
         
         for imageIndex in 0..<itemsAmount {
-            let image = UIImage(named: "img\(imageIndex).png") ?? UIImage(systemName: "exclamationmark.shield")!
-            let item = ImageAndText(image: image, text: generateText())
-            delegate.fetcher(receivedItem: item, at: imageIndex)
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                let image = UIImage(named: "img\(imageIndex).png") ?? UIImage(systemName: "exclamationmark.shield")!
+                let item = ImageAndText(image: image, text: self?.generateText())
+                self?.delegate?.fetcher(asyncReceivedItem: item)
+            }
+            
         }
     }
     

@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol FetcherDelegate {
-    func fetcher(receivedItem: ImageAndText, at index: Int)
+protocol FetcherDelegate: AnyObject {
+    func fetcher(asyncReceivedItem: ImageAndText)
 }
