@@ -20,9 +20,11 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetcher?.fetch(itemsCount: 10, closure: { images in
-            self.images = images
-            self.tableView.reloadData()
+        fetcher?.fetch(itemsCount: 40, closure: { [weak self] images in
+            DispatchQueue.main.async {
+                self?.images = images
+                self?.tableView.reloadData()
+            }
         })
         
     }
