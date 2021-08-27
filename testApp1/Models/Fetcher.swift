@@ -8,5 +8,5 @@
 import Foundation
 
 protocol Fetcher: AnyObject {
-    func fetch(itemsCount: Int, closure: @escaping ([ImageAndText]) -> Void)
+    func fetch(itemsAmount: Int, for delegate: FetcherDelegate)
 }

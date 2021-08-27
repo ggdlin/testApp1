@@ -19,6 +19,7 @@
 		1CD622EE26D3ABC900CF75A1 /* ImageAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD622ED26D3ABC900CF75A1 /* ImageAndText.swift */; };
 		1CD622F526D3E88000CF75A1 /* NetworkFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD622F426D3E88000CF75A1 /* NetworkFetch.swift */; };
 		1CD622F926D419D800CF75A1 /* RandomImageJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD622F826D419D800CF75A1 /* RandomImageJson.swift */; };
+		1CF5D91E26D8F279008CFC10 /* FetcherDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF5D91D26D8F279008CFC10 /* FetcherDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		1CD622ED26D3ABC900CF75A1 /* ImageAndText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndText.swift; sourceTree = "<group>"; };
 		1CD622F426D3E88000CF75A1 /* NetworkFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetch.swift; sourceTree = "<group>"; };
 		1CD622F826D419D800CF75A1 /* RandomImageJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageJson.swift; sourceTree = "<group>"; };
+		1CF5D91D26D8F279008CFC10 /* FetcherDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				1CD622F826D419D800CF75A1 /* RandomImageJson.swift */,
 				1C798FEE26D55BBE00C364E2 /* RandomTextJson.swift */,
 				1C798FEA26D4FF2D00C364E2 /* Fetcher.swift */,
+				1CF5D91D26D8F279008CFC10 /* FetcherDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				1CD622F526D3E88000CF75A1 /* NetworkFetch.swift in Sources */,
 				1C798FEF26D55BBE00C364E2 /* RandomTextJson.swift in Sources */,
 				1CD622E826D3A6A800CF75A1 /* FetchMugImages.swift in Sources */,
+				1CF5D91E26D8F279008CFC10 /* FetcherDelegate.swift in Sources */,
 				1CD622F926D419D800CF75A1 /* RandomImageJson.swift in Sources */,
 				1CD622D326D3A3A900CF75A1 /* AppDelegate.swift in Sources */,
 				1CD622EE26D3ABC900CF75A1 /* ImageAndText.swift in Sources */,

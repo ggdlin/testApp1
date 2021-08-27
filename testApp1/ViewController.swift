@@ -15,17 +15,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetcher = NetworkFetch()
+        fetcher = FetchMugImages()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetcher?.fetch(itemsCount: 40, closure: { [weak self] images in
-            DispatchQueue.main.async {
-                self?.images = images
-                self?.tableView.reloadData()
-            }
-        })
+        fetcher?.fetch(itemsAmount: 12, for: self)
         
     }
     
@@ -53,5 +48,10 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-
+extension ViewController: FetcherDelegate {
+    func fetcher(receivedItem: ImageAndText, at index: Int) {
+        images.insert(receivedItem, at: index)
+        tableView.reloadData()
+    }
+}
 
