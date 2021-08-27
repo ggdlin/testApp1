@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetcher?.fetch(itemsAmount: 12, for: self)
+        fetcher?.fetch(itemsAmount: 40, for: self)
         
     }
     
