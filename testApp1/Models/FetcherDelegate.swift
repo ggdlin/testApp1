@@ -8,5 +8,5 @@
 import Foundation
 
 protocol FetcherDelegate: AnyObject {
-    func fetcher(asyncReceivedItem: ImageAndText)
+    func handlingFetchedResults(asyncReceivedItem: ImageAndText, atIndex: Int)
 }

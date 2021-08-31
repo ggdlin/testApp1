@@ -8,16 +8,19 @@
 import UIKit
 
 class NetworkFetch: Fetcher {
+    
+    
     let imagePath = "https://random-d.uk/api/random?format=json"
     let textPath = "https://api.forismatic.com/api/1.0/?method=getQuote&format=json"
+    
     
     weak var delegate: FetcherDelegate?
     
     func fetch(itemsAmount: Int) {
         guard let imageJsonURL = URL(string: imagePath) else { print("Bad image url"); return }
-        for requestIndex in 0..<itemsAmount {
+        
         DispatchQueue.global(qos: .background).async { [weak self] in
-            
+            for requestIndex in 0..<itemsAmount {
             
                 URLSession.shared.dataTask(with: imageJsonURL) { (data, _, error) in
                     if let error = error { print(error); return }
@@ -25,21 +28,27 @@ class NetworkFetch: Fetcher {
                         guard let parsedStringImageURL = try? JSONDecoder().decode(RandomImageJson.self, from: imageJsonData) else { return }
                         guard let imageURL = URL(string: parsedStringImageURL.url) else { return }
                         
-                        URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
+                        let dataTask = URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
                             if let error = error { print(error); return }
                             if let imageData = data, let image = UIImage(data: imageData) {
                                 let text = self?.fetchQuote()
                                 let item = ImageAndText(image: image, text: text)
                                 print("image \(requestIndex) of \(itemsAmount) fetched")
-                                self?.delegate?.fetcher(asyncReceivedItem: item)
+                                self?.delegate?.handlingFetchedResults(asyncReceivedItem: item, atIndex: requestIndex)
                             }
                             
-                        }.resume()
+                        }
+                        dataTask.resume()
                         
                     }
                 }.resume()
             }
         }
+    }
+    
+    func cancelAllRequests() {
+        URLSession.shared.invalidateAndCancel()
+        print("func invalidateAndCancel() executed")
     }
     
 
@@ -56,6 +65,7 @@ class NetworkFetch: Fetcher {
     }
     
     deinit {
+        
         print("NetworkFetch DEinitialised")
     }
 }

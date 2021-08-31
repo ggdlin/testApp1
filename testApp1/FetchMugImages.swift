@@ -8,7 +8,13 @@
 import UIKit
 
 class FetchMugImages: Fetcher {
+    
+    
     weak var delegate: FetcherDelegate?
+    
+    func cancelAllRequests() {
+        URLSession.shared.invalidateAndCancel()
+    }
     
     func fetch(itemsAmount: Int) {
         
@@ -16,7 +22,7 @@ class FetchMugImages: Fetcher {
             DispatchQueue.global(qos: .background).async { [weak self] in
                 let image = UIImage(named: "img\(imageIndex).png") ?? UIImage(systemName: "exclamationmark.shield")!
                 let item = ImageAndText(image: image, text: self?.generateText())
-                self?.delegate?.fetcher(asyncReceivedItem: item)
+                self?.delegate?.handlingFetchedResults(asyncReceivedItem: item, atIndex: imageIndex)
             }
             
         }

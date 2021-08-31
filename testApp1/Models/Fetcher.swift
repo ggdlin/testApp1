@@ -10,4 +10,5 @@ import Foundation
 protocol Fetcher: AnyObject {
     var delegate: FetcherDelegate? { get set }
     func fetch(itemsAmount: Int)
+    func cancelAllRequests()
 }
