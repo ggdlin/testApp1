@@ -8,6 +8,8 @@
 import UIKit
 
 struct ImageAndText {
+    var dbid: ObjectIdentifier?
     let image: UIImage
     var text: String?
+    
 }

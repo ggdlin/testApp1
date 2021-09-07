@@ -9,12 +9,12 @@ import Foundation
 
 protocol FetcherProtocol: AnyObject {
     var delegate: FetcherDelegate? { get set }
-    var storer: DataStorer? { get set }
+    var storer: DataStorerProtocol? { get set }
     
     // fetch from local
-    func fetchFromStorage()
+    func fetchFromStorage() -> [ImageAndText]?
     // fetch from web
-    func fetchFromWeb()
+    func fetchFromWeb(itemsAmount: Int)
     
     func cancelAllRequests()
 }

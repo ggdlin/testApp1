@@ -7,16 +7,25 @@
 
 import UIKit
 
-class NetworkFetch: Fetcher {
+class NetworkFetch: FetcherProtocol {
+    
     
     
     let imagePath = "https://random-d.uk/api/random?format=json"
     let textPath = "https://api.forismatic.com/api/1.0/?method=getQuote&format=json"
-    
+    var storer: DataStorerProtocol? = DataStorer()
     
     weak var delegate: FetcherDelegate?
     
-    func fetch(itemsAmount: Int) {
+    func fetchFromStorage() -> [ImageAndText]? {
+        guard let imagesAndTexts = storer?.load() else { return nil }
+        return imagesAndTexts
+    }
+    
+    func fetchFromWeb(itemsAmount: Int) {
+        // очищаем хранилище
+        storer?.deleteAllRecords()
+        // загружаем из веба, поштучно передаем делегату и сохраняем в хранилище
         guard let imageJsonURL = URL(string: imagePath) else { print("Bad image url"); return }
         
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -34,6 +43,7 @@ class NetworkFetch: Fetcher {
                                 let text = self?.fetchQuote()
                                 let item = ImageAndText(image: image, text: text)
                                 print("image \(requestIndex) of \(itemsAmount) fetched")
+                                self?.storer?.save(item: item)
                                 self?.delegate?.handlingFetchedResults(asyncReceivedItem: item, atIndex: requestIndex)
                             }
                             
@@ -44,6 +54,7 @@ class NetworkFetch: Fetcher {
                 }.resume()
             }
         }
+        //
     }
     
     func cancelAllRequests() {

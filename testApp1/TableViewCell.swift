@@ -10,7 +10,8 @@ import UIKit
 class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var imageForMe: UIImageView!
-    @IBOutlet weak var textFieldForMe: UITextField!
+    @IBOutlet weak var labelForMe: UILabel!
+    
     
     
     override func awakeFromNib() {

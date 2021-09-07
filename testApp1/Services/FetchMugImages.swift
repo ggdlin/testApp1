@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+/*
 class FetchMugImages: Fetcher {
     
     
@@ -31,12 +31,6 @@ class FetchMugImages: Fetcher {
     private func generateText() -> String? {
         Bool.random() ? "Описание для изображения" : nil
     }
-    
-    init() {
-        print("FetchMugImages initialised")
-    }
-    
-    deinit {
-        print("FetchMugImages DEinitialised")
-    }
 }
+*/
+
