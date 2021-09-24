@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import CoreData
 
 struct ImageAndText {
-    var dbid: ObjectIdentifier?
+    var dbid: NSManagedObjectID?
     let image: UIImage
     var text: String?
     

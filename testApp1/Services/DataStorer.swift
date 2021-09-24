@@ -26,7 +26,7 @@ class DataStorer: DataStorerProtocol {
                 
                 guard let imageData = item.image, let image = UIImage(data: imageData) else { return nil }
                 let text = item.text
-                let imageAndText = ImageAndText(dbid: item.id, image: image, text: text)
+                let imageAndText = ImageAndText(dbid: item.objectID, image: image, text: text)
                 returnedResult.append(imageAndText)
             }
             return returnedResult
@@ -36,20 +36,19 @@ class DataStorer: DataStorerProtocol {
         }
     }
     
-    func save(item: ImageAndText) {
+    func save(item: ImageAndText) -> ImageAndText {
         
-            guard let entity = NSEntityDescription.entity(forEntityName: "Record", in: context) else { return }
-            guard let record =  NSManagedObject(entity: entity, insertInto: context) as? Record else { return }
+            guard let entity = NSEntityDescription.entity(forEntityName: "Record", in: context),
+                  let record =  NSManagedObject(entity: entity, insertInto: context) as? Record else { return item }
             record.image = item.image.pngData()
             record.text = item.text
-        
         do {
             try context.save()
-            
+            return ImageAndText(dbid: record.objectID, image: item.image, text: item.text)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        
+        return item
     }
     
     func deleteAllRecords() {
@@ -66,8 +65,15 @@ class DataStorer: DataStorerProtocol {
     
     func deleteRecord(item: ImageAndText) {
         // TODO: fetch by ID and delete object
-//        let entity = NSEntityDescription.entity(forEntityName: <#T##String#>, in: <#T##NSManagedObjectContext#>)
-//        context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
+        guard let dbid = item.dbid else { return }
+        // runtime error - reason: 'keypath dbid not found in entity Record'
+        do {
+            let fetchedObject = try context.existingObject(with: dbid)
+            context.delete(fetchedObject)
+            try context.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
     }
     
     

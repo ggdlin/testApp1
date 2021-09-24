@@ -17,9 +17,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetcher = NetworkFetch()
+        tableView.delegate = self
+        fetcher = Fetcher()
+        fetcher?.webRequester = WebRequester()
+        fetcher?.storer = ObjCDataStorer()
         fetcher?.delegate = self
         images = arrayWithImageStubs(itemsAmount: rowsCount)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,21 +74,39 @@ extension ViewController: UITableViewDataSource {
         cell.labelForMe.text = cellContent.text
         return cell
     }
+    
+    
+}
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _,_,_ in
+            print("delete row action")
+            guard let item = self?.images.remove(at: indexPath.row) else { return }
+            self?.fetcher?.deleteRecord(item)
+            self?.tableView.beginUpdates()
+            self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self?.tableView.endUpdates()
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 extension ViewController: FetcherDelegate {
     
-    
     func handlingFetchedResults(asyncReceivedItem: ImageAndText, atIndex: Int) {
         DispatchQueue.main.async { [weak self] in
-            guard let count = self?.images.count, count > atIndex else { return }
-            let newImage = asyncReceivedItem.image
-            let newText = asyncReceivedItem.text
-            print("newText: \(newText ?? "not fetched")")
-            let imageAndText = ImageAndText(image: newImage, text: newText)
-//            self?.storer?.save(item: imageAndText)
-            self?.images[atIndex] = imageAndText
-            self?.tableView.reloadRows(at: [IndexPath.init(row: atIndex, section: 0)], with: .automatic)
+            guard let self = self else { return }
+            if self.images.count != self.rowsCount {
+                self.images = self.arrayWithImageStubs(itemsAmount: self.rowsCount)
+                self.tableView.reloadData()
+            }
+            
+            self.images[atIndex] = asyncReceivedItem
+            self.tableView.reloadRows(at: [IndexPath.init(row: atIndex, section: 0)], with: .automatic)
+            
+            
         }
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 protocol FetcherProtocol: AnyObject {
     var delegate: FetcherDelegate? { get set }
     var storer: DataStorerProtocol? { get set }
+    var webRequester: WebRequesterProtocol? { get set }
     
     // fetch from local
     func fetchFromStorage() -> [ImageAndText]?
@@ -17,4 +18,6 @@ protocol FetcherProtocol: AnyObject {
     func fetchFromWeb(itemsAmount: Int)
     
     func cancelAllRequests()
+    
+    func deleteRecord(_ item: ImageAndText) 
 }
