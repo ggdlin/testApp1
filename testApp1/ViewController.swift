@@ -20,10 +20,11 @@ class ViewController: UIViewController {
         tableView.delegate = self
         fetcher = Fetcher()
         fetcher?.webRequester = WebRequester()
-        fetcher?.storer = ObjCDataStorer()
+        fetcher?.storer = DataStorer()
         fetcher?.delegate = self
         images = arrayWithImageStubs(itemsAmount: rowsCount)
-        
+        let recordsCount = ObjCDataStorer().load()
+        print("\(recordsCount) images in the database.")
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -9,12 +9,18 @@ import Foundation
 import UIKit
 import CoreData
 
-class DataStorer: DataStorerProtocol {
+@objc
+@objcMembers
+class DataStorer: NSObject, DataStorerProtocol {
     let context: NSManagedObjectContext!
     
-    init?() {
-        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return nil }
-        self.context = context
+    override init() {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            self.context = context
+        } else {
+            self.context = NSManagedObjectContext(coder: NSCoder())
+        }
+        super.init()
     }
     
     func load() -> [ImageAndText]? {

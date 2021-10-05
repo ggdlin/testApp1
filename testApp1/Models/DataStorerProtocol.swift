@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 protocol DataStorerProtocol: AnyObject {
     func save(item: ImageAndText) -> ImageAndText
     func load() -> [ImageAndText]?
