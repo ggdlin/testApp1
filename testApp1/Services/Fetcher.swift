@@ -1,13 +1,14 @@
 //
-//  NetworkFetch.swift
+//  Fetcher.swift
 //  testApp1
 //
 //  Created by Sergey Ivanov on 23.08.2021.
 //
 
+
 import UIKit
 
-class Fetcher: FetcherProtocol {
+class Fetcher: NSObject, FetcherProtocol {
     
     let imagePath = "https://random-d.uk/api/random?format=json"
     let textPath = "https://api.forismatic.com/api/1.0/?method=getQuote&format=json"

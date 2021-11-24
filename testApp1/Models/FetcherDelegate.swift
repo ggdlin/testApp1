@@ -7,6 +7,8 @@
 
 import Foundation
 
+@objc
 protocol FetcherDelegate: AnyObject {
-    func handlingFetchedResults(asyncReceivedItem: ImageAndText, atIndex: Int) 
+
+    @objc    func handlingFetchedResults(asyncReceivedItem: ImageAndText, atIndex: Int)
 }

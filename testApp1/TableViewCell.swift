@@ -7,6 +7,7 @@
 
 import UIKit
 
+@objc
 class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var imageForMe: UIImageView!

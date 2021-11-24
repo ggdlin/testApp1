@@ -7,7 +7,8 @@
 
 import Foundation
 
+@objc
 protocol WebRequesterProtocol {
-    func fetchImageData(url: URL, closure: @escaping (Data?) -> Void )
-    func fetchText(url: URL) -> String?
+    @objc    func fetchImageData(url: URL, closure: @escaping (Data?) -> Void )
+    @objc    func fetchText(url: URL) -> String?
 }

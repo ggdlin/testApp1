@@ -23,8 +23,6 @@ class ViewController: UIViewController {
         fetcher?.storer = DataStorer()
         fetcher?.delegate = self
         images = arrayWithImageStubs(itemsAmount: rowsCount)
-        let recordsCount = ObjCDataStorer().load()
-        print("\(recordsCount) images in the database.")
     }
     
     override func viewDidAppear(_ animated: Bool) {

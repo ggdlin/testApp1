@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct RandomTextJson: Decodable {
     let quoteText: String
 }

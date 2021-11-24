@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 
+
 @objcMembers
 class ImageAndText: NSObject {
     var dbid: NSManagedObjectID?

@@ -7,7 +7,8 @@
 
 import Foundation
 
-class WebRequester: WebRequesterProtocol {
+@objcMembers
+class WebRequester: NSObject, WebRequesterProtocol {
     
     func fetchImageData(url: URL, closure: @escaping (Data?) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, _, error) in

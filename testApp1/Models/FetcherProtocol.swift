@@ -7,17 +7,18 @@
 
 import Foundation
 
+@objc
 protocol FetcherProtocol: AnyObject {
-    var delegate: FetcherDelegate? { get set }
-    var storer: DataStorerProtocol? { get set }
-    var webRequester: WebRequesterProtocol? { get set }
+    @objc    weak var delegate: FetcherDelegate? { get set }
+    @objc    var storer: DataStorerProtocol? { get set }
+    @objc    var webRequester: WebRequesterProtocol? { get set }
     
     // fetch from local
-    func fetchFromStorage() -> [ImageAndText]?
+    @objc    func fetchFromStorage() -> [ImageAndText]?
     // fetch from web
-    func fetchFromWeb(itemsAmount: Int)
+    @objc    func fetchFromWeb(itemsAmount: Int)
     
-    func cancelAllRequests()
+    @objc    func cancelAllRequests()
     
-    func deleteRecord(_ item: ImageAndText) 
+    @objc   func deleteRecord(_ item: ImageAndText) 
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-
+@objc
 protocol DataStorerProtocol: AnyObject {
-    func save(item: ImageAndText) -> ImageAndText
-    func load() -> [ImageAndText]?
-    func deleteAllRecords()
-    func deleteRecord(item: ImageAndText)
+    @objc   func save(item: ImageAndText) -> ImageAndText
+    @objc    func load() -> [ImageAndText]?
+    @objc    func deleteAllRecords()
+    @objc   func deleteRecord(item: ImageAndText)
 }
